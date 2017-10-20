@@ -39,31 +39,38 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         else return x.N;
     }
     
-    public Node lca(Key n1, Key n2)
+    public Key lca(Key n1, Key n2)
     {
     	return lca(root, n1, n2);
     }
     
-    private Node lca(Node x, Key n1, Key n2) 
+    private Key lca(Node x, Key n1, Key n2) 
     {
-        if (x == null)
-            return null;
-  
-        int cmp = n1.compareTo(x.key);
-        int cmp2 = n2.compareTo(x.key);
-        if (cmp < 0 && cmp2 < 0)
-        {
-        	return lca(x.left, n1, n2);
-        }
-        
-        cmp = n1.compareTo(x.key);
-        cmp2 = n2.compareTo(x.key);
-        if (cmp > 0 && cmp2 > 0)
-        {
-        	return lca(x.left, n1, n2);
-        }
-  
-        return x;
+    	if (contains(n1) && contains(n2))
+    	{
+    		if (x == null)
+                return null;
+      
+            int cmp = n1.compareTo(x.key);
+            int cmp2 = n2.compareTo(x.key);
+            if (cmp < 0 && cmp2 < 0)
+            {
+            	return lca(x.left, n1, n2);
+            }
+            
+            cmp = n1.compareTo(x.key);
+            cmp2 = n2.compareTo(x.key);
+            if (cmp > 0 && cmp2 > 0)
+            {
+            	return lca(x.right, n1, n2);
+            }
+      
+            return x.key;
+    	}
+    	else
+    	{
+    		return null;
+    	}
     }
 
     /**
@@ -108,10 +115,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
      */
     public void put(Key key, Value val) 
     {
-        if (val == null) 
-        { 
-        	delete(key); return;
-        }
         root = put(root, key, val);
     }
 
@@ -125,126 +128,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
-
-    /**
-     * Tree height.
-     *
-     * Asymptotic worst-case running time using Theta notation: Log(n)
-     *
-     * @return the number of links from the root to the deepest leaf.
-     *
-     * Example 1: for an empty tree this should return -1.
-     * Example 2: for a tree with only one node it should return 0.
-     * Example 3: for the following tree it should return 2.
-     *   B
-     *  / \
-     * A   C
-     *      \
-     *       D
-     */
-    public int height() 
-    {
-      //TODO fill in the correct implementation.
-    	if(size() == 0)
-    	{
-    		return -1;
-    	}
-    	else
-    	{
-    		return height(root);
-    	}
-    }
     
-    private int height(Node x)
-    {
-    	if (x == null) 
-    	{
-            return -1;
-        }
-    	int height1 = height(x.left);
-        int height2 = height(x.right);
-
-        if (height1 > height2) 
-        {
-            return height1 + 1;
-        } 
-        else 
-        {
-            return height2 + 1;
-        }
-    }
-    
-    public void delete(Key key)
-    {
-        //TODO fill in the correct implementation.
-      	root = delete(root,key);
-    }
-      
-      private Node delete(Node x, Key key)
-      {
-      	if(x == null)
-      	{
-      		return null;
-      	}
-      	int cmp = key.compareTo(x.key);
-      	if(cmp < 0)
-      	{
-      		x.left = delete(x.left, key);
-      	}
-      	else if(cmp > 0)
-      	{
-      		x.right = delete(x.right, key);
-      	}
-      	else
-      	{
-      		if(x.right == null)
-      		{
-      			return x.left;
-      		}
-      		if(x.left == null)
-      		{
-      			return x.right;
-      		}
-      		Node t = x;
-      		x = floor(x.left,x.left.key);
-      		x.left = deleteFloor(x);
-      		x.right = t.right;
-      	}
-      	x.N = size(x.left) + size(x.right) + 1;
-      	return x;
-      }
-      
-      private Node floor(Node x, Key key)
-      {
-      	if (x == null)
-      	{
-      		return null;
-      	}
-      	int cmp = key.compareTo(x.key);
-      	if (cmp < 0)
-      	{
-      		return floor(x.left,key);
-      	}
-      	Node t = floor(x.right, key);
-      	if(t != null)
-      	{
-      		return t;
-      	}
-      	else 
-      	{
-      		return x;
-      	}
-      }
-      
-      private Node deleteFloor(Node x)
-      {
-      	if(x.right == null)
-      	{
-      		return x.left;
-      	}
-      	x.N = 1 + size(x.left) + size(x.right);
-      	return x;
-      }
-
-    
+ 
 }

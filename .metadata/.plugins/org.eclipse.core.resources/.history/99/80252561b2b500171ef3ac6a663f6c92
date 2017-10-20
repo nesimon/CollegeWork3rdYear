@@ -1,0 +1,72 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+public class BinaryTreeTest
+{
+  
+ 
+     
+     @Test
+     public void testHeight()
+     {
+    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
+		 bst.put(1, 1);
+		 bst.put(2, 2);
+		 bst.put(3, 3);
+		 bst.put(4, 4);
+		 bst.put(5, 5);
+		 bst.put(6, 6);
+		 bst.put(8, 8);
+    	 assertEquals(6, bst.height());
+     }
+     
+     @Test
+     public void testLca()
+     {
+    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
+    	 bst.put(1, 1);
+		 bst.put(2, 2);
+		 bst.put(3, 3);
+		 bst.put(4, 4);
+		 bst.put(5, 5);
+		 bst.put(6, 6);
+		 bst.put(8, 8);
+		
+    	 assertEquals(6, (int)bst.lca(8,6));
+     }
+     
+     @Test
+     public void testDeleteLca() {
+    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();     
+         bst.put(7, 7);   //        _7_
+         bst.put(8, 8);   //      /     \
+         bst.put(3, 3);   //    _3_      8
+         bst.put(1, 1);   //  /     \
+         bst.put(2, 2);   // 1       6
+         bst.put(6, 6);   //  \     /
+         bst.put(4, 4);   //   2   4
+         bst.put(5, 5);   //        \
+                          //         5
+         
+         assertEquals(3, (int)bst.lca(1,6));
+         bst.delete(3);
+
+ 
+         bst.delete(8);
+  
+ 
+         bst.delete(6);
+ 
+ 
+         bst.delete(3);
+
+     }
+     
+     
+     
+}
+
