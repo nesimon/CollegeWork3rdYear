@@ -55,6 +55,9 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
     {
     	if (contains(n1) && contains(n2))
     	{
+    		if (x == null)
+                return null;
+      
             int cmp = n1.compareTo(x.key);
             int cmp2 = n2.compareTo(x.key);
             if (cmp < 0 && cmp2 < 0)
