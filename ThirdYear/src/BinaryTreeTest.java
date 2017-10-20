@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,13 +61,29 @@ public class BinaryTreeTest
      @Test
      public void testLca3()
      {
-    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
-   	
+    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();	
 		 assertNull(bst.lca(4,9));
+		 assertNull(bst.get(4));
+		 assertTrue(bst.isEmpty());
+		 
 		 bst.put(6, 6);
 		 bst.put(7, 7);
 		 bst.put(5, 5);
+		 
 		 assertEquals(6, (int)bst.lca(5,7));
+		 assertNull(bst.lca(4,9));
+     }
+     
+     @Test
+     public void testLca4()
+     {
+    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();    	 
+    	 bst.put(6, 6);
+		 bst.put(5, 2);
+		 bst.put(1, 3);
+		 bst.put(7, 3);
+		 
+		 assertEquals(4, bst.size());
      }
     
 }
