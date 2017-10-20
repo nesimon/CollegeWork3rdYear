@@ -38,6 +38,33 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         if (x == null) return 0;
         else return x.N;
     }
+    
+    public Node lca(Key n1, Key n2)
+    {
+    	return lca(root, n1, n2);
+    }
+    
+    private Node lca(Node x, Key n1, Key n2) 
+    {
+        if (x == null)
+            return null;
+  
+        int cmp = n1.compareTo(x.key);
+        int cmp2 = n2.compareTo(x.key);
+        if (cmp < 0 && cmp2 < 0)
+        {
+        	return lca(x.left, n1, n2);
+        }
+        
+        cmp = n1.compareTo(x.key);
+        cmp2 = n2.compareTo(x.key);
+        if (cmp > 0 && cmp2 > 0)
+        {
+        	return lca(x.left, n1, n2);
+        }
+  
+        return x;
+    }
 
     /**
      *  Search BST for given key.
@@ -46,7 +73,8 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
      *  @param key the search key
      *  @return true if key is found and false otherwise
      */
-    public boolean contains(Key key) {
+    public boolean contains(Key key) 
+    {
         return get(key) != null;
     }
 
@@ -57,9 +85,13 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
      *  @param key the search key
      *  @return value associated with the given key if found, or null if no such key exists.
      */
-    public Value get(Key key) { return get(root, key); }
+    public Value get(Key key) 
+    { 
+    	return get(root, key);
+    }
 
-    private Value get(Node x, Key key) {
+    private Value get(Node x, Key key)
+    {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if      (cmp < 0) return get(x.left, key);
@@ -74,12 +106,17 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
      *  @param key the key to insert
      *  @param val the value associated with key
      */
-    public void put(Key key, Value val) {
-        if (val == null) { delete(key); return; }
+    public void put(Key key, Value val) 
+    {
+        if (val == null) 
+        { 
+        	delete(key); return;
+        }
         root = put(root, key, val);
     }
 
-    private Node put(Node x, Key key, Value val) {
+    private Node put(Node x, Key key, Value val) 
+    {
         if (x == null) return new Node(key, val, 1);
         int cmp = key.compareTo(x.key);
         if      (cmp < 0) x.left  = put(x.left,  key, val);
@@ -105,7 +142,8 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
      *      \
      *       D
      */
-    public int height() {
+    public int height() 
+    {
       //TODO fill in the correct implementation.
     	if(size() == 0)
     	{
@@ -136,10 +174,11 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         }
     }
     
-    public void delete(Key key) {
+    public void delete(Key key)
+    {
         //TODO fill in the correct implementation.
       	root = delete(root,key);
-      }
+    }
       
       private Node delete(Node x, Key key)
       {
