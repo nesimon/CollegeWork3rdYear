@@ -1,6 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,18 +53,6 @@ public class BinaryTreeTest
 		 bst.put(4, 4);
 		
     	 assertEquals(6, (int)bst.lca(4,9));
-     }
-     
-     @Test
-     public void testLca3()
-     {
-    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
-   	
-		 assertNull(bst.lca(4,9));
-		 bst.put(6, 6);
-		 bst.put(7, 7);
-		 bst.put(5, 5);
-		 assertEquals(6, (int)bst.lca(5,7));
      }
     
 }

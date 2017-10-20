@@ -1,6 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,12 +12,16 @@ public class BinaryTreeTest
      public void testPut()
      {
     	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
-    	 bst.put(1, 7);
-		 bst.put(2, 8);
-		 bst.put(3, 9);
+    	 bst.put(1, 1);
+		 bst.put(2, 2);
+		 bst.put(3, 3);
+		 bst.put(4, 4);
+		 bst.put(5, 5);
+		 bst.put(6, 6);
+		 bst.put(8, 8);
 		
-    	 assertEquals(8, (int)bst.get(2));
-    	 assertEquals(9, (int)bst.get(3));
+    	 assertEquals(4, (int)bst.lca(4,8));
+    	 assertEquals(1, (int)bst.lca(1,8));
      }
 		
      @Test
@@ -55,18 +57,6 @@ public class BinaryTreeTest
 		 bst.put(4, 4);
 		
     	 assertEquals(6, (int)bst.lca(4,9));
-     }
-     
-     @Test
-     public void testLca3()
-     {
-    	 BinaryTree<Integer, Integer> bst = new BinaryTree<Integer, Integer>();
-   	
-		 assertNull(bst.lca(4,9));
-		 bst.put(6, 6);
-		 bst.put(7, 7);
-		 bst.put(5, 5);
-		 assertEquals(6, (int)bst.lca(5,7));
      }
     
 }
