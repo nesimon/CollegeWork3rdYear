@@ -54,7 +54,6 @@ public class BinaryTreeTest
 		 bst.put(9, 9);
 		 bst.put(4, 4);
 		
-		 assertTrue(bst.contains(11));
     	 assertEquals(6, (int)bst.lca(4,9));
      }
      
