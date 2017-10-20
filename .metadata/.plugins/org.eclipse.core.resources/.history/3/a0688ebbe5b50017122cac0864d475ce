@@ -39,18 +39,12 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         else return x.N;
     }
     
-    /**
-     *  Lowest Common Ancestor function
-     *  Uses compareTo to compare keys
-     *
-     *  @param Keys to find LCA
-     *  @return key of LCA
-     */
     public Key lca(Key n1, Key n2)
     {
     	return lca(root, n1, n2);
     }
     
+    //Lowest ancestor function using compareTo to compare keys
     private Key lca(Node x, Key n1, Key n2) 
     {
     	if (contains(n1) && contains(n2))
