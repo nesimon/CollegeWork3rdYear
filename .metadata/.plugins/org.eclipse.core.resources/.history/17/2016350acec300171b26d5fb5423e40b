@@ -59,12 +59,12 @@ public class DAG<Key extends Comparable<Key>, Value> {
      */
     public void addChild(Key key, Value val) 
     {
-        addChild(root, key, val);
+        root = addChild(root, key, val);
     }
 
-    private void addChild(Node x, Key key, Value val) 
+    private Node addChild(Node x, Key key, Value val) 
     {
-        if (x == null) root = new Node(key, val);
+        if (x == null) return new Node(key, val);
         int cmp = key.compareTo(x.key);
         if (cmp < 0)
         {
@@ -75,12 +75,12 @@ public class DAG<Key extends Comparable<Key>, Value> {
         else if (cmp > 0)
         {
         	x.children.add(new Node(key, val));
-        	x.children.get(x.children.size()-1).parent = x;
         }
         else
         {
         	x.val = val;
         }
+        return x;
     }
     
     public Node findLCA(Key key) 

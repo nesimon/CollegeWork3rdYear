@@ -15,11 +15,12 @@ public class DAG<Key extends Comparable<Key>, Value> {
         private Key key;           // sorted by key
         private Value val;         // associated data
         private Node parent;
-        ArrayList<Node> children = new ArrayList<Node>();		// subtrees
+        private Node[] children;   // subtrees
 
         public Node(Key key, Value val) {
             this.key = key;
             this.val = val;
+            this.children[0] = null;
         }
     }
     
@@ -41,9 +42,9 @@ public class DAG<Key extends Comparable<Key>, Value> {
         if (x.key == key) return x;
         Node answer = x;
     	int index = 0;
-    	while(index <x.children.size())
+    	while(x.children[index] != null)
     	{   		
-    		answer = search(x.children.get(index), x.key);
+    		answer = search(x.children[index], x.key);
     		if (answer.key == key) return answer;
     		index++;
     	}
@@ -59,28 +60,40 @@ public class DAG<Key extends Comparable<Key>, Value> {
      */
     public void addChild(Key key, Value val) 
     {
-        addChild(root, key, val);
+        root = addChild(root, key, val);
     }
 
-    private void addChild(Node x, Key key, Value val) 
+    private Node addChild(Node x, Key key, Value val) 
     {
-        if (x == null) root = new Node(key, val);
+        if (x == null) return new Node(key, val);
         int cmp = key.compareTo(x.key);
         if (cmp < 0)
         {
         	x.parent = new Node(key, val);
         	root = x.parent;
-        	root.children.set(0,x);
+        	root.children[0] = x;
         }
         else if (cmp > 0)
         {
-        	x.children.add(new Node(key, val));
-        	x.children.get(x.children.size()-1).parent = x;
+        	boolean notFilled = true;
+        	int index = 0;
+        	while(notFilled)
+        	{
+        		if (x.children[index] == null)
+            	{
+            		x.children[index] = new Node(key, val);
+            		x.children[index+1] = null;
+            		x.children[index].parent = x;
+            		notFilled = false;
+            	}
+        		index++;
+        	}
         }
         else
         {
         	x.val = val;
         }
+        return x;
     }
     
     public Node findLCA(Key key) 
