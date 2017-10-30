@@ -87,6 +87,7 @@ public class DAG<Key extends Comparable<Key>, Value> {
     { 
     	ArrayList<Node> pathToLCA = new ArrayList<Node>();
     	int index = 0;
+    	boolean nailedIt = false;
     	return findLCA(root, key, pathToLCA, index);
     }
 
@@ -102,8 +103,9 @@ public class DAG<Key extends Comparable<Key>, Value> {
     	{   	
     		index++;
     		pathToLCA = findLCA(x.children.get(index), key, pathToLCA, index);
-    		if (pathToLCA.get(index).key == key) return pathToLCA;
+    		if (pathToLCA.get(index).key == key) return answer;
+    		index++;
     	}
-    	return pathToLCA;
+    	return answer;
     }
 }
