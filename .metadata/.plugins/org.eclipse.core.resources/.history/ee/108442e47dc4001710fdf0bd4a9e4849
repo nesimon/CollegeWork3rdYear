@@ -1,0 +1,21 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class DAGTest {
+
+	@Test
+    public void testPut()
+    {
+		DAG<Integer, Integer> dag = new DAG<Integer, Integer>();
+   	 	dag.addChild(7, 7);
+   	 	dag.addChild(8, 8);
+   	 	dag.addChild(9, 9);
+   	 	dag.addChild(10, 10);
+   	 	dag.addChild(6, 6);
+   	 	
+   	 	assertEquals(6, 6); 
+   	 	assertEquals(10, (int)dag.search(10)); 	
+    }
+
+}

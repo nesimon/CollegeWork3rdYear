@@ -1,0 +1,109 @@
+/*************************************************************************
+ *
+ *  @author Neil Simon
+ *
+ *************************************************************************/
+import java.util.ArrayList;
+
+public class DAG<Key extends Comparable<Key>, Value> {
+    private Node root;             // root of BST
+
+    /**
+     * Private node class.
+     */
+    private class Node {
+        private Key key;           // sorted by key
+        private Value val;         // associated data
+        private Node parent;
+        ArrayList<Node> children = new ArrayList<Node>();		// subtrees
+
+        public Node(Key key, Value val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+    
+    /**
+     *  Search BST for given key.
+     *  What is the value associated with given key?
+     *
+     *  @param key the search key
+     *  @return node associated with the given key if found, or null if no such key exists.
+     */
+    public Node search(Key key) 
+    { 
+    	return search(root, key);
+    }
+
+    private Node search(Node x, Key key)
+    {
+        if (x == null) return null;
+        if (x.key == key) return x;
+        Node answer = x;
+    	int index = 0;
+    	while(index <x.children.size())
+    	{   		
+    		answer = search(x.children.get(index), x.key);
+    		if (answer.key == key) return answer;
+    		index++;
+    	}
+    	return answer;
+    }
+
+    /**
+     *  Insert key-value pair into BST.
+     *  If key already exists, update with new value.
+     *
+     *  @param key the key to insert
+     *  @param val the value associated with key
+     */
+    public void addChild(Key key, Value val) 
+    {
+        addChild(root, key, val);
+    }
+
+    private void addChild(Node x, Key key, Value val) 
+    {
+        if (x == null) root = new Node(key, val);
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+        {
+        	x.parent = new Node(key, val);
+        	root = x.parent;
+        	root.children.set(0,x);
+        }
+        else if (cmp > 0)
+        {
+        	x.children.add(new Node(key, val));
+        	x.children.get(x.children.size()-1).parent = x;
+        }
+        else
+        {
+        	x.val = val;
+        }
+    }
+    
+    public ArrayList<Node> findLCA(Key key) 
+    { 
+    	ArrayList<Node> pathToLCA = new ArrayList<Node>();
+    	int index = 0;
+    	return findLCA(root, key, pathToLCA, index);
+    }
+
+    private ArrayList<Node> findLCA(Node x, Key key, ArrayList<Node> pathToLCA, int index)
+    {
+        if (x == null) return null;
+        pathToLCA.add(x);
+        if (x.key == key)
+        {
+        	return pathToLCA;
+        }
+    	while(index < x.children.size())
+    	{   	
+    		index++;
+    		pathToLCA = findLCA(x.children.get(index), key, pathToLCA, index);
+    		if (pathToLCA.get(index).key == key) return pathToLCA;
+    	}
+    	return pathToLCA;
+    }
+}

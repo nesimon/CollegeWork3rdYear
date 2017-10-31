@@ -1,0 +1,60 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class DAGTest {
+	
+	@Test
+    public void testAddChild()
+    {
+		DAG<Integer, Integer> dag = new DAG<Integer, Integer>();
+   	 	dag.addChild(7, 7);
+   	 	assertEquals(7, (int)dag.search(7));
+   	 	dag.addChild(8, 8);
+   	 	assertEquals(8, (int)dag.search(8));
+   	 	
+   	 	DAG<Integer, Integer> dag2 = new DAG<Integer, Integer>();
+	 	dag2.addChild(7, 7);
+	 	dag2.addChild(8, 8);
+	 	dag2.addChild(9, 9);
+	 	dag2.addChild(10, 10);
+   	 	 
+   	 	assertEquals(10, (int)dag2.search(10));
+   	 	assertEquals(8, (int)dag2.search(8));
+   	 	assertEquals(9, (int)dag2.search(9));
+   	 	assertEquals(7, (int)dag2.search(7));
+    }
+	
+	@Test
+    public void testSearch()
+    {
+		DAG<Integer, Integer> dag = new DAG<Integer, Integer>();
+   	 	dag.addChild(7, 7);
+   	 	dag.addChild(8, 8);
+   	 	dag.addChild(9, 9);
+   	 	dag.addChild(10, 10);
+   	 	dag.addChild(6, 6);
+   	 	dag.addChild(7, 7);
+	 	dag.addChild(11, 11);
+	 	dag.addChild(20, 20);
+   	 	 
+   	 	assertEquals(10, (int)dag.search(10));
+   	 	assertEquals(8, (int)dag.search(8));
+   	 	assertEquals(20, (int)dag.search(20));
+   	 	assertEquals(6, (int)dag.search(6));
+    }
+
+	@Test
+    public void testFindPathToLCA1()
+    { 	 	
+		DAG<Integer, Integer> dag = new DAG<Integer, Integer>();
+   	 	dag.addChild(7, 7);
+   	 	dag.addChild(8, 8);
+   	 	dag.addChild(9, 9);
+   	 	dag.addChild(10, 10);
+   	 	dag.addChild(6, 6);
+   	 	
+   	 	assertEquals(6, (int)dag.findLCA(dag.findPathToLCA(7), dag.findPathToLCA(8)));
+   	 	assertEquals(6, (int)dag.findLCA(dag.findPathToLCA(7), dag.findPathToLCA(8)));
+    }
+}
