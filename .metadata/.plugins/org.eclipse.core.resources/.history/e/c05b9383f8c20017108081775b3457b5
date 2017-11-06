@@ -1,0 +1,78 @@
+import BinaryTree.Node;
+
+public class DAG
+{
+	public Node root;
+	public int id;          
+    public int parent;        
+    public int[] children;             
+
+ 
+    private class Node 
+    {            
+        public Node(int id) 
+        {
+            this.id = id;
+        }
+    }
+    
+    public function __construct($node, $id = null)
+    {
+        $this->node = $node;
+        $this->id = $id;
+    }
+ 
+    public function addChild(Node &$n)
+    {
+        $n->parent = $this;
+        $this->children[] = $n;
+    }
+ 
+    /**
+     * Returns an element by its id
+     * 
+     * @param mixed $id
+     * @return Node 
+     */
+    public function search($id)
+    {
+        if ($this->id == $id) {
+            return $this;
+        }
+ 
+        $a = false;
+ 
+        // search all the children starting from the left-most
+        foreach ($this->children as $child) {
+            $a = $child->search($id);
+        }
+ 
+        return $a;
+    }
+ 
+    /**
+     * Finds a path from the root to the 
+     * item and returns it as a list
+     * 
+     * @param mixed $id 
+     * @return array
+     */
+    public function find_path($id, &$path)
+    {
+        array_push($path, $this->id);
+ 
+        if ($this->id == $id) {
+            return 1;
+        }
+ 
+        foreach ($this->children as $child)  {
+            if (1 == $child->find_path($id, $path)) return 1;
+            array_pop($path);
+        }
+    }
+ 
+    public function __toString()
+    {
+        return $this->node . ' ' . $this->id . "\n";
+    }
+}
