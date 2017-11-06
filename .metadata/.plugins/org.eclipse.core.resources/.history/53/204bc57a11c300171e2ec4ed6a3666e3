@@ -1,3 +1,5 @@
+import BinaryTree.Node;
+
 /*************************************************************************
  *  Binary Search Tree class.
  *  Adapted from Sedgewick and Wayne.
@@ -34,24 +36,19 @@ public class DAG<Key extends Comparable<Key>, Value> {
      *  @param key the search key
      *  @return value associated with the given key if found, or null if no such key exists.
      */
-    public Node search(Key key) 
+    public Node get(Key key) 
     { 
-    	return search(root, key);
+    	return get(root, key);
     }
 
-    private Node search(Node x, Key key)
+    private Node get(Node x, Key key)
     {
         if (x == null) return null;
         if (x.key == key) return x;
-        Node answer = x;
-    	int index = 0;
-    	while(x.children[index] != null)
-    	{   		
-    		answer = search(x.children[index], x.key);
-    		if (answer.key == key) return answer;
-    		index++;
-    	}
-    	return answer;
+        int cmp = key.compareTo(x.key);
+        if      (cmp < 0) return get(x.left, key);
+        else if (cmp > 0) return get(x.right, key);
+        else              return x.val;
     }
 
     /**
@@ -73,8 +70,7 @@ public class DAG<Key extends Comparable<Key>, Value> {
         if (cmp < 0)
         {
         	x.parent = new Node(key, val);
-        	root = x.parent;
-        	root.children[0] = x;
+        	x = x.parent;
         }
         else if (cmp > 0)
         {
@@ -86,7 +82,6 @@ public class DAG<Key extends Comparable<Key>, Value> {
             	{
             		x.children[index] = new Node(key, val);
             		x.children[index+1] = null;
-            		x.children[index].parent = x;
             		notFilled = false;
             	}
         		index++;
