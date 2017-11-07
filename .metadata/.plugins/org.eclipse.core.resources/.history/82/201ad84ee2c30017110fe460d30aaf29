@@ -98,12 +98,12 @@ public class DAG<Key extends Comparable<Key>, Value> {
         {
         	return pathToLCA;
         }
-    	while(index < x.children.size())
-    	{   	
+    	while(x.children[index] != null)
+    	{   		
+    		answer = findLCA(x.children[index], x.key, pathToLCA);
+    		if (answer.key == key) return answer;
     		index++;
-    		pathToLCA = findLCA(x.children.get(index), key, pathToLCA, index);
-    		if (pathToLCA.get(index).key == key) return pathToLCA;
     	}
-    	return pathToLCA;
+    	return answer;
     }
 }
