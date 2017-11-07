@@ -1,0 +1,19 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class DAGTest {
+
+	@Test
+    public void testPut()
+    {
+   	 DAG<Integer, Integer> dag = new DAG<Integer, Integer>();
+   	 bst.put(1, 7);
+		 bst.put(2, 8);
+		 bst.put(3, 9);
+		
+   	 assertEquals(8, (int)bst.get(2));
+   	 assertEquals(9, (int)bst.get(3));
+    }
+
+}
