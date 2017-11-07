@@ -62,7 +62,7 @@ public class DAG<Key extends Comparable<Key>, Value> {
         addChild(root, key, val);
     }
 
-    private void addChild(Node x, Key key, Value val) 
+    private voic addChild(Node x, Key key, Value val) 
     {
         if (x == null) root = new Node(key, val);
         int cmp = key.compareTo(x.key);
