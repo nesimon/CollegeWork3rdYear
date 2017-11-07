@@ -114,17 +114,17 @@ public class DAG<Key extends Comparable<Key>, Value> {
     
     private Key findLCA(Node x, ArrayList<Node> pathToLCA1, ArrayList<Node> pathToLCA2)
     {
-    	for(int index = 0; index < pathToLCA1.size(); index++)
-    	{
-    		if (pathToLCA1.get(index).equals(pathToLCA2.get(index)))
-            {
-            	index++;
-            }
-            else
-            {
-            	return pathToLCA1.get(index-1).key;
-            }
+    	pathToLCA1.get(index)
+        if (pathToLCA1.get(index).equals(pathToLCA2.get(index)))
+        {
+        	return pathToLCA;
+        }
+    	while(index < x.children.size())
+    	{   	
+    		index++;
+    		pathToLCA = findPathToLCA(x.children.get(index), key, pathToLCA, index);
+    		if (pathToLCA.get(index).key == key) return pathToLCA;
     	}
-    	return null;
+    	return pathToLCA;
     }
 }
