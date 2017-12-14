@@ -1,13 +1,15 @@
 from github import Github
 
-# Input your own user name and password to displa info
-#g = Github("user", "password")
-# Or input your github access code
-g = Github("92cc88158b67be82b0dd4dabd1bf7b6ec4dce0bd")
+# Input your own user name and password to display info
+g = Github("user", "password")
+# Or input your github access code to display info
+#g = Github("Github Access Code")
 
 user = g.get_user()
 
 for repo in user.get_repos():
-    print(repo.name)
-    for repo in repo.get_commit("master"):
-        print(repo.name)
+    print("Repository Name = [" + repo.name + "]")
+    print("Main language used = [" + repo.language + "] \n")
+    for commits in repo.get_commits():
+        print("The commit " + commits.sha + " was created at [" + str(commits.commit.author.date) + "]")
+    print("\n")
