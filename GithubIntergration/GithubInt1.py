@@ -1,7 +1,7 @@
 from github import Github
 
 # Input your own user name and password to display info
-g = Github("user", "password")
+g = Github("username", "Password")
 # Or input your github access code to display info
 #g = Github("Github Access Code")
 
