@@ -1,11 +1,18 @@
-from github import Github
+from github import Github, BadCredentialsException
 
-# Input your own user name and password to display info
-g = Github("username", "Password")
-# Or input your github access code to display info
-#g = Github("Github Access Code")
-
-user = g.get_user()
+loggedIn = False
+while not loggedIn:
+    try:
+        # Input your own user name and password to display info
+        username = input("Github username: ")
+        password = input("Github password: ")
+        g = Github(username, password)
+        # Or input your github access code to display info
+        # g = Github("Github Access Code")
+        user = g.get_user(login = username)
+        loggedIn = True
+    except BadCredentialsException:
+        print("Incorrect username or password!")
 
 for repo in user.get_repos():
     print("Repository Name = [" + repo.name + "]")

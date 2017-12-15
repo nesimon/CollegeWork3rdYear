@@ -1,15 +1,26 @@
-from github import Github
+from github import Github, BadCredentialsException
 import csv
 from itertools import zip_longest
 
-# Input your own user name and password to display info
-g = Github("username", "Password")
+
+loggedIn = False
+while not loggedIn:
+    try:
+        # Input your own user name and password to display info
+        username = input("Github username: ")
+        password = input("Github password: ")
+        g = Github(username, password)
+        # Or input your github access code to display info
+        # g = Github("Github Access Code")
+        user = g.get_user(login="facebook")
+        loggedIn = True
+    except BadCredentialsException:
+        print("Incorrect username or password!")
 # Or input your github access code to display info
 #g = Github("Github Access Code")
 
+print("Generating data!")
 # This code gets the top 10 developers in the React repo of facebook and converts it to a csv file.
-user = g.get_user(login= "facebook")
-
 list1 = []
 list2 = []
 
