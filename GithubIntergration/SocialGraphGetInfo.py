@@ -1,5 +1,6 @@
 from github import Github, BadCredentialsException
 import csv
+import webbrowser
 from itertools import zip_longest
 
 
@@ -38,3 +39,5 @@ with open('Data.csv', 'w', newline='') as myfile:
       wr.writerow(("Developer", "Commits"))
       wr.writerows(export_data)
 myfile.close()
+
+webbrowser.open("SocialGraphDisplayInfo.html")

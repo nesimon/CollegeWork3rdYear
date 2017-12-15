@@ -1,5 +1,6 @@
 from github import Github, BadCredentialsException
 import csv
+import webbrowser
 from itertools import zip_longest
 
 loggedIn = False
@@ -42,3 +43,5 @@ with open('Data2.csv', 'w', newline='') as myfile:
       wr.writerow(("Language", "Frequency"))
       wr.writerows(export_data)
 myfile.close()
+
+webbrowser.open("SocialGraphDisplayInfo2.html")
